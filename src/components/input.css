@@ -38,13 +38,15 @@
     border-bottom: 0.2rem solid #4caf59;
 }
 
-.search-button a {
-    text-decoration: none;
+.search-button {
     font-size: 1.8rem;
     padding: 0.1rem 0.5rem;
     background-color: #4caf59;
     border: 0.2rem solid #4caf59;
     outline: none;
     border-radius: 0.3rem;
+}
+a{
+    text-decoration: none;
     color: #fff;
 }
