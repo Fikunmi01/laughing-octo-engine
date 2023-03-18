@@ -1,12 +1,13 @@
 import React from "react";
 
 function listCharacters(str) {
+  // check if its a string 
   const charArray = str.toString().split("");
   return charArray;
 }
 
 function CharacterList(props) {
-  const { savedVariable, onDelete } = props;
+  const { savedVariable } = props;
   const charList = listCharacters(savedVariable);
 
 
