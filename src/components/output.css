@@ -1,0 +1,30 @@
+.output-background {
+    background-color: #def2c8;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.output-card {
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 50rem;
+    border-radius: 0.5rem;
+    gap: 4rem;
+    height: 30rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.output-value span {
+    display: flex;
+    object-fit: contain;
+    justify-content: center;
+    flex-direction: column-reverse;
+    background-color: #def2c8;
+    padding:1.5rem 1.5rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
