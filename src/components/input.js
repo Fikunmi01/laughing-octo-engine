@@ -1,67 +1,74 @@
 import "./input.css";
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { ValueContext } from "../context/context";
+import React, {useContext, useState, useEffect} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {ValueContext} from "../context/context";
 
 export const Input = () => {
-  // Here we initialize our value context
-  const { value, setValue } = useContext(ValueContext);
+    let navigate = useNavigate()
+    // Here we initialize our value context && states
+    const {value, setValue} = useContext(ValueContext);
+    let [error, setErrors] = useState(false);
+    let [typing, setTyping] = useState(false);
+    let [cachedValue, setCachedValue] = useState(value);
 
-  const disableButton = {
-    fontFamily: `'Kalam', cursive`,
-    cursor: "not-allowed",
-    title: "Please input some text to enable the button",
-  };
 
-  const activeButton = {
-    fontFamily: `'Kalam', cursive`,
-    cursor: "pointer",
-  };
+    //=======Styles
+    const disableButton = {
+        fontFamily: `'Kalam', cursive`,
+        cursor: "not-allowed",
+        title: "Please input some text to enable the button",
+    };
+    const activeButton = {
+        fontFamily: `'Kalam', cursive`,
+        cursor: "pointer",
+    };
+    //========
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(value);
-    setValue("");
-    
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (value === '' || value === null) setErrors(true);
+        navigate("/output");
+        setValue('')
+    };
 
-  const handleClick = () => {
-    if (value && value.length === 0) {
-      alert("Field cannot be empty");
-      return false;
-    } else console.log(value);
-    return true;
-    
-  };
-  return (
-    <div className="input-background">
-      <div className="search-card">
-        <form onSubmit={handleSubmit}>
-          <span className="input-span">
-            <input
-              type="text"
-              style={{ fontFamily: `'Kalam', cursive` }}
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              placeholder="Input your text"
-            />
-          </span>
-          <span className="search-button">
-            <Link
-              to={value.length === 0 ? '/' : "/output"}
-              onClick={handleClick}
-              style={value.length === 0 ? disableButton : activeButton}
-              title={
-                value.length === 0
-                  ? "Please input some text to enable the button"
-                  : ""
-              }
-            >
-              Go
-            </Link>
-          </span>
-        </form>
-      </div>
-    </div>
-  );
+    const watchInputChange = (e) => {
+        setTyping(true);
+        setValue(e.target.value);
+    }
+
+    //Watch the value and check to know when the field is empty then alert the  error
+    useEffect(() => {
+        if (typing) {
+            setErrors(value === '');
+        }
+    }, [value])
+
+    return (
+        <div className="input-background">
+            <div className="search-card">
+                <form onSubmit={handleSubmit} style={{display: 'flex', gap: '0.4rem', alignItems: 'center'}}>
+                    <div className="input-span">
+                        <input
+                            type="text"
+                            style={{fontFamily: `'Kalam', cursive`, borderColor: error && 'red'}}
+                            value={value}
+                            onChange={watchInputChange}
+                            placeholder="Input your text"
+                        />
+                        {
+                            error && (
+                                <p style={{color: 'red', fontSize: '1em', marginTop: '0.8rem'}}>Sorry but you have to fill
+                                    out the field</p>)
+                        }
+
+                    </div>
+
+                    <button className="search-button" style={value.length === 0 ? disableButton : activeButton}
+                            type={'submit'}>
+                        Proceed
+                    </button>
+                </form>
+            </div>
+        </div>
+    );
 };

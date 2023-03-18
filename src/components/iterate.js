@@ -1,27 +1,27 @@
-import React from "react";
+import React, {useContext} from "react";
+import {ValueContext} from "../context/context";
 
-function listCharacters(str) {
-  // check if its a string 
-  const charArray = str.toString().split("");
-  return charArray;
-}
 
 function CharacterList(props) {
-  const { savedVariable } = props;
-  const charList = listCharacters(savedVariable);
+  // const { savedVariable } = props;
+  const { removeString, value, charsList } = useContext(ValueContext)
 
 
   return (
     <div>
-      {charList.map((char, index) => (
+      {charsList.map((char, index) => (
         <span
           style={{
             marginRight: `1rem`,
             marginTop: `2rem`,
             marginLeft: `2rem`,
             display: "inline-block",
+            backgroundColor: charsList.indexOf(char) !== index ? '#000': '',
+            borderRadius: '8px',
+            color: charsList.indexOf(char) !== index ? '#fff': ''
           }}
           key={index}
+          onClick={() => removeString({val: char,  key: index})}
         >
           {char}
         </span>
