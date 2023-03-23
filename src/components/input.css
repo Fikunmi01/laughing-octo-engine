@@ -58,4 +58,15 @@ a{
         margin-left: 3%;
         margin-right: 3%;
     }
+
+    .input-span input {
+        margin-left: 3%;
+        width: 80%;
+        position: relative;
+        left: 5%;
+    }
+
+    .search-button {
+        margin-right: 3%;
+    }
 }
